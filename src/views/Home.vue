@@ -1,13 +1,23 @@
 <template>
-  <div class="container">
-    home
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-auto h-100 left-menu-box">
+        <MainMenu />
+      </div>
+      <div class="col-auto h-100">123</div>
+      <div class="col-auto h-100">123</div>
+    </div>
   </div>
 </template>
 
 <script setup>
+import MainMenu from '@/components/MainMenu.vue'
 
 </script>
 
 <style lang="stylus">
-@import '~bootstrap/dist/css/bootstrap.min.css';
+.left-menu-box {
+  border-right: 1px solid var(--background-light-senary, #F5F5F5);
+  background: var(--background-light-primary, #000);
+}
 </style>
