@@ -4,12 +4,7 @@
       <div class="col-auto h-100 left-menu-box">
         <MainMenu />
       </div>
-      <main class="col-auto main-content h-100">
-        <router-view />
-      </main>
-      <div class="col-auto h-100">
-        aside
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
@@ -25,9 +20,5 @@ import MainMenu from '@/components/MainMenu.vue'
   border-right: 1px solid var(--background-light-senary, #F5F5F5);
   background: var(--background-light-primary, #000);
 }
-.main-content.col-auto {
-  width 212px
-  padding-left:8px
-  padding-right: 8px
-}
+
 </style>
