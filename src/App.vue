@@ -1,21 +1,10 @@
 <template>
-  <div class="h-100vh">
-    <router-view/>
-  </div>
+  <MainLayout>
+    <router-view />
+  </MainLayout>
 </template>
 
 <script setup>
+import MainLayout from '@/layout/MainLayout.vue'
+
 </script>
-
-<style lang="stylus">
-  @import '~bootstrap/dist/css/bootstrap.min.css';
-  ul, ol, li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .h-100vh {
-    height: 100vh
-  }
-</style>
