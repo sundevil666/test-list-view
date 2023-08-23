@@ -59,7 +59,7 @@ const mainMenu = [
     background transparent
     transition background .3s
   }
-  .main-menu-wrap__item:hover, .router-link-active  {
+  .main-menu-wrap__item:hover, .main-menu-wrap__item.router-link-active  {
     background: var(--background-light-secondary, #1F1F1F);
     fill: #fff;
   }

@@ -2,7 +2,7 @@
   <div class=" col h-100">
     <div class="row h-100">
       <main class="h-100 col-auto main-content pt-4">
-        <h1>Marketing</h1>
+        <div class="main-content__title">Marketing</div>
 
         <ul class="pb-2 mb-1 w-100">
           <SubMenu
@@ -25,7 +25,7 @@
         </ul>
       </main>
 
-      <aside class="col h-100 pt-4">
+      <aside class="col h-100">
         <component :is="currentComponent"></component>
       </aside>
     </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
 import SubMenu from '@/components/SubMenu.vue'
 import MarketingNewsAside from '@/components/marketing/MarketingNewsAside.vue'
 import NotFoundComponentAside from '@/components/NotFoundComponentAside.vue'
@@ -50,8 +50,8 @@ const subMenu2 = [
   { id: 4, nameIcon: 'Blogs', component: 'NotFoundComponentAside', title: 'Blogs' }
 ]
 const componentMap = {
-  MarketingNewsAside,
-  NotFoundComponentAside
+  MarketingNewsAside: markRaw(MarketingNewsAside),
+  NotFoundComponentAside: markRaw(NotFoundComponentAside)
 }
 const currentMenuItem = ref('NotFoundComponentAside')
 const currentComponent = ref(componentMap.NotFoundComponentAside)
@@ -63,12 +63,14 @@ const switchComponent = (component) => {
 </script>
 
 <style lang="stylus">
-  h1 {
+  .main-content__title {
     border-bottom: 1px solid var(--background-light-senary, #F5F5F5);
-    padding-left: 12px
-    padding-right: 16px
-    padding-bottom: 16px
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
     margin-bottom: 16px
+    padding 4px 16px 16px 12px
   }
   .title-separator {
     padding: 10px 16px 10px 12px;
