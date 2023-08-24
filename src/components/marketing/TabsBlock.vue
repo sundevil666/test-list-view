@@ -19,7 +19,7 @@
     <ol class="tabs-block__tabs col">
       <li v-if="currentTab === 'overview'">content overview</li>
       <li v-if="currentTab === 'news'">
-        <div class="d-flex">
+        <div class="d-flex py-3">
           <CustomSelect
             class="me-1"
             label-select="Date"
@@ -39,6 +39,9 @@
             :select-list="selectStatus"
             @selectChange="selectChange($event)"
           />
+          <div class="ms-auto d-flex filter-box">
+            <FilterBox />
+          </div>
         </div>
       </li>
     </ol>
@@ -48,6 +51,8 @@
 <script setup>
 import { ref } from 'vue'
 import CustomSelect from '@/components/CustomSelect.vue'
+import FilterBox from '@/components/marketing/FilterBox.vue'
+
 const selectStatus = [
   { name: 'All', color: '' },
   { name: 'Open', color: '#F18C53' },
