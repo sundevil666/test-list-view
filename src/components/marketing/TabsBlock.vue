@@ -19,7 +19,27 @@
     <ol class="tabs-block__tabs col">
       <li v-if="currentTab === 'overview'">content overview</li>
       <li v-if="currentTab === 'news'">
-        <CustomSelect />
+        <div class="d-flex">
+          <CustomSelect
+            class="me-1"
+            label-select="Date"
+            name-icon="icoDate"
+            :select-list="selectStatus"
+          />
+          <CustomSelect
+            class="me-1"
+            label-select="Category"
+            name-icon="icoCategory"
+            :select-list="selectStatus"
+          />
+          <CustomSelect
+            class="me-1"
+            label-select="Status"
+            name-icon="icoStatus"
+            :select-list="selectStatus"
+            @selectChange="selectChange($event)"
+          />
+        </div>
       </li>
     </ol>
   </div>
@@ -28,8 +48,20 @@
 <script setup>
 import { ref } from 'vue'
 import CustomSelect from '@/components/CustomSelect.vue'
-
+const selectStatus = [
+  { name: 'All', color: '' },
+  { name: 'Open', color: '#F18C53' },
+  { name: 'Assigned', color: '#175CD3' },
+  { name: 'Approved', color: '#26AD75' },
+  { name: 'Declined', color: '#6941C6' },
+  { name: 'Closed', color: '#E4E4E4' },
+  { name: 'Archived', color: '#E83A64' }
+]
 const currentTab = ref('news')
+
+const selectChange = (value) => {
+  console.log(value)
+}
 
 </script>
 

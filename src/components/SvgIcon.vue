@@ -32,4 +32,8 @@ defineProps({
     width: 20px;
     height: 20px;
   }
+  .size-16x16 {
+    width: 16px;
+    height: 16px;
+  }
 </style>

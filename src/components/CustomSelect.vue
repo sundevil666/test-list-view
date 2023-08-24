@@ -1,98 +1,158 @@
 <template>
-  <div class="aselect" :data-value="value" :data-list="list">
-  <div class="selector" @click="toggle()">
-    <div class="label">
-      <span>{{ value }}</span>
+  <div
+    class="aselect"
+    :data-value="value"
+    :data-list="selectList"
+  >
+  <div
+    class="selector"
+    @click="toggle()"
+  >
+    <div class="label d-flex">
+      <SvgIcon
+        class="pe-1"
+        :name-icon="nameIcon"
+        class-icon="size-16x16"
+      />
+      <div class="label-select me-1">{{ labelSelect }} :</div>
+      <div class="me-3">{{ defaultOption }}</div>
+      <SvgIcon
+        class="arrow ms-auto"
+        :class="{ expanded : visibleOption }"
+        name-icon="icoArrow"
+        class-icon="size-16x16"
+      />
     </div>
-    <div class="arrow" :class="{ expanded : visible }"></div>
-    <div :class="{ hidden : !visible, visible }">
-      <ul>
-        <li
-            v-for="item in list"
-            :key="item"
-            :class="{ current : item === value }"
-            @click="select(item)">{{ item }}</li>
-      </ul>
-    </div>
+    <ul
+      :class="visibleOption ? 'd-block' : 'd-none' "
+    >
+      <li class="title-select-list">{{ labelSelect }}</li>
+      <hr class="separator my-1" />
+      <li
+          v-for="item in selectList"
+          :key="item.name"
+          class="select-list__item d-flex align-items-center"
+          :class="{ current : item.name === value }"
+          @click="select(item.name)"
+      >
+        <div
+          v-if="item.color"
+          class="select-mark"
+          :style="`background: ${item.color}`"
+        />
+        <div>{{ item.name }}</div>
+        <SvgIcon
+          class="ms-auto"
+          :class="item.name === value ? 'd-block' : 'd-none'"
+          name-icon="icoCheck"
+          class-icon="size-20x20"
+        />
+      </li>
+    </ul>
   </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, defineProps, defineEmits } from 'vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 
-const value = ref('Select a Fruit')
-const visible = ref(false)
-const list = ['Orange', 'Apple', 'Kiwi', 'Banana']
+const props = defineProps({
+  selectList: {
+    type: Array,
+    required: true
+  },
+  labelSelect: {
+    type: String,
+    required: true
+  },
+  nameIcon: {
+    type: String,
+    required: true
+  }
+})
+const emits = defineEmits(['selectChange'])
+const defaultOption = ref(props.selectList[0].name)
+
+const value = ref(defaultOption.value)
+const visibleOption = ref(false)
 
 const toggle = () => {
-  visible.value = !visible.value
+  visibleOption.value = !visibleOption.value
 }
 const select = (option) => {
   value.value = option
+  emits('selectChange', option)
 }
 
 </script>
 
 <style lang="stylus">
 .aselect {
-  width: 280px;
-  margin: 20px auto;
   .selector {
-    border: 1px solid gainsboro;
-    background: #F8F8F8;
+    border-radius: 8px;
+    background: var(--background-light-primary, #000);
     position: relative;
     z-index: 1;
+    .label-select {
+      opacity .77
+    }
     .arrow {
-      position: absolute;
-      right: 10px;
-      top: 40%;
-      width: 0;
-      height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-top: 10px solid #888;
-      transform: rotateZ(0deg) translateY(0px);
-      transition-duration: 0.3s;
-      transition-timing-function: cubic-bezier(.59,1.39,.37,1.01);
+      transform 0
+      transition transform .3s
     }
     .expanded {
-      transform: rotateZ(180deg) translateY(2px);
+      transform: rotateZ(180deg);
     }
     .label {
-      display: block;
-      padding: 12px;
-      font-size: 16px;
-      color: #888;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      color #fff
+      padding 8px 12px
+      min-width 160px
+      cursor pointer
     }
   }
   ul {
     width: 100%;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    border: 1px solid gainsboro;
     position: absolute;
+    top calc(100% + 2px);
     z-index: 1;
     background: #fff;
+    padding 8px
+  }
+  .title-select-list .title-select-list:hover {
+    padding: 8px
+    color: var(--text-light-primary, #000);
+    background #fff;
+  }
+  .separator {
+    border-top 1px solid #FCFCFC
   }
   li {
-    padding: 12px;
-    color: #666;
+    padding: 8px;
+    color: var(--text-light-secondary, #5C5C5C);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    border-radius: 8px;
+    background transparent
+    transition background .3s
     &:hover {
-      color: white;
-      background: seagreen;
+      background: var(--background-light-septenary, #FCFCFC);
     }
   }
-  .current {
-    background: #eaeaea;
+  .select-mark {
+    width 8px
+    height 8px
+    border-radius 50%
+    margin-right: 16px
   }
-  .hidden {
-    visibility: hidden;
-  }
-  .visible {
-    visibility: visible;
-  }
+}
+.select-list__item {
+  cursor pointer
 }
 </style>
