@@ -43,6 +43,7 @@
             <FilterBox />
           </div>
         </div>
+        <TableNesList />
       </li>
     </ol>
   </div>
@@ -52,6 +53,8 @@
 import { ref } from 'vue'
 import CustomSelect from '@/components/CustomSelect.vue'
 import FilterBox from '@/components/marketing/FilterBox.vue'
+import TableNesList from '@/components/marketing/TableNesList.vue'
+import { fetchNewsList } from '@/api/news'
 
 const selectStatus = [
   { name: 'All', color: '' },
@@ -66,8 +69,18 @@ const currentTab = ref('news')
 
 const selectChange = (value) => {
   console.log(value)
+  fetchData()
 }
 
+const fetchData = async () => {
+  try {
+    const response = await fetchNewsList()
+    console.log(response)
+  } catch (error) {
+    console.error('Error fetchData news', error)
+  }
+}
+fetchData()
 </script>
 
 <style lang="stylus">

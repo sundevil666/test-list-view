@@ -1,6 +1,6 @@
 <template>
-  <div class="h-100 flex-column row">
-    <div class="head-page d-flex justify-content-between align-items-center col-auto">
+  <div class="d-flex flex-column h-100">
+    <div class="head-page d-flex justify-content-between align-items-center">
       <div class="h1 col-auto">News</div>
       <div class="col-auto">
         <button class="d-flex btn-create">
